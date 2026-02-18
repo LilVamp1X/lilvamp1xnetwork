@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LilVamp1X</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Simple Analytics -->
+    <script src="analytics.js" defer></script>
+</head>
+<body>
+    <!-- Video Background - ENTIRE PAGE -->
+    <video class="video-background" autoplay loop muted playsinline>
+        <source src="your-video-file.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Dark overlay over entire page -->
+    <div class="page-overlay"></div>
+    
+    <!-- Container for gun, PFP, and content -->
+    <div class="container">
+        <!-- Spinning gun - BIG and ABOVE everything -->
+        <div class="floating-gun">
+            <div class="spinning-gun"></div>
+        </div>
+        
+        <!-- Upcoming proxy dev - TYPEWRITER STYLE (NO CURSOR) -->
+        <div class="upcoming-container">
+            <span id="typewriter-badge" class="upcoming-text"></span>
+            <!-- Cursor removed from here -->
+        </div>
+        
+        <!-- Main content - PFP and typewriter -->
+        <div class="content-row">
+            <!-- Profile picture - SMALL on the left -->
+            <div class="pfp-container">
+                <img src="your-pfp.webp" alt="LilVamp1X">
+            </div>
+            
+            <!-- Typewriter name on the right (NO CURSOR) -->
+            <div class="typewriter-container">
+                <span id="typewriter-name" class="typewriter-text"></span>
+                <!-- Cursor removed from here -->
+            </div>
+        </div>
+
+        <!-- Social Media Buttons - SVG logos -->
+        <div class="social-buttons">
+            <a href="https://discord.com/users/1132711679822659584" target="_blank" class="social-btn">
+                <img src="discord-logo.svg" alt="Discord">
+            </a>
+            <a href="https://tiktok.com/@lilvamp1x7" target="_blank" class="social-btn">
+                <img src="tiktok-logo.svg" alt="TikTok">
+            </a>
+            <a href="https://instagram.com/lilvamp1x" target="_blank" class="social-btn">
+                <img src="instagram-logo.svg" alt="Instagram">
+            </a>
+        </div>
+    </div>
+
+    <!-- Background Music - Working autoplay -->
+    <audio id="bg-music" loop>
+        <source src="Babydoll.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Credit in bottom corner -->
+    <div class="music-credit">♪ Dominic Fike ♪</div>
+
+    <script>
+        // Typewriter effect for both texts - NO CURSORS
+        window.addEventListener('load', function() {
+            // Text for badge
+            const badgeText = "upcoming proxy dev";
+            const badgeElement = document.getElementById('typewriter-badge');
+            
+            // Text for name
+            const nameText = "LilVamp1X";
+            const nameElement = document.getElementById('typewriter-name');
+            
+            // Clear any existing text
+            badgeElement.innerHTML = '';
+            nameElement.innerHTML = '';
+            
+            let badgeIndex = 0;
+            let nameIndex = 0;
+            
+            // Type badge first, then name
+            function typeBadge() {
+                if (badgeIndex < badgeText.length) {
+                    badgeElement.innerHTML += badgeText.charAt(badgeIndex);
+                    badgeIndex++;
+                    setTimeout(typeBadge, 100);
+                } else {
+                    // Start typing name after badge is done
+                    setTimeout(typeName, 300);
+                }
+            }
+            
+            function typeName() {
+                if (nameIndex < nameText.length) {
+                    nameElement.innerHTML += nameText.charAt(nameIndex);
+                    nameIndex++;
+                    setTimeout(typeName, 150);
+                }
+            }
+            
+            // Start the sequence
+            setTimeout(typeBadge, 500);
+        });
+
+        // Music autoplay at 20% volume
+        window.addEventListener('load', function() {
+            const music = document.getElementById('bg-music');
+            music.volume = 0.2;
+            
+            let playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('Music playing at 20% volume');
+                }).catch(() => {
+                    console.log('Autoplay blocked - will play on click');
+                    
+                    document.body.addEventListener('click', function playOnClick() {
+                        music.volume = 0.2;
+                        music.play();
+                        document.body.removeEventListener('click', playOnClick);
+                    }, { once: true });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
