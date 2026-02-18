@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">LilVamp1X</title>
+    
+    <!-- Favicon / Tab Icon -->
+    <link rel="icon" type="image/png" href="tab-icon.png">
+    <link rel="shortcut icon" href="tab-icon.png" type="image/png">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Simple Analytics -->
+    <script src="analytics.js" defer></script>
+</head>
+<body>
+    <!-- Video Background - ENTIRE PAGE -->
+    <video class="video-background" autoplay loop muted playsinline>
+        <source src="your-video-file.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Dark overlay over entire page -->
+    <div class="page-overlay"></div>
+    
+    <!-- Container for gun, PFP, and content -->
+    <div class="container">
+        <!-- Spinning gun - BIG and ABOVE everything -->
+        <div class="floating-gun">
+            <div class="spinning-gun"></div>
+        </div>
+        
+        <!-- Upcoming proxy dev - TYPEWRITER STYLE -->
+        <div class="upcoming-container">
+            <span id="typewriter-badge" class="upcoming-text"></span>
+        </div>
+        
+        <!-- Main content - PFP and typewriter -->
+        <div class="content-row">
+            <!-- Profile picture - SMALL on the left -->
+            <div class="pfp-container">
+                <img src="your-pfp.webp" alt="LilVamp1X">
+            </div>
+            
+            <!-- Typewriter name on the right -->
+            <div class="typewriter-container">
+                <span id="typewriter-name" class="typewriter-text"></span>
+            </div>
+        </div>
+
+        <!-- Social Media Buttons - SVG logos -->
+        <div class="social-buttons">
+            <a href="https://discord.com/users/1132711679822659584" target="_blank" class="social-btn">
+                <img src="discord-logo.svg" alt="Discord">
+            </a>
+            <a href="https://tiktok.com/@lilvamp1x7" target="_blank" class="social-btn">
+                <img src="tiktok-logo.svg" alt="TikTok">
+            </a>
+            <a href="https://instagram.com/lilvamp1x" target="_blank" class="social-btn">
+                <img src="instagram-logo.svg" alt="Instagram">
+            </a>
+        </div>
+    </div>
+
+    <!-- Background Music - Working autoplay -->
+    <audio id="bg-music" loop>
+        <source src="Babydoll.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Credit in bottom corner -->
+    <div class="music-credit">LilVamp1X</div>
+
+    <script>
+        // Typewriter effect for badge and name (run once)
+        window.addEventListener('load', function() {
+            // Text for badge
+            const badgeText = "upcoming proxy dev";
+            const badgeElement = document.getElementById('typewriter-badge');
+            
+            // Text for name
+            const nameText = "LilVamp1X";
+            const nameElement = document.getElementById('typewriter-name');
+            
+            // Clear any existing text
+            badgeElement.innerHTML = '';
+            nameElement.innerHTML = '';
+            
+            let badgeIndex = 0;
+            let nameIndex = 0;
+            
+            // Type badge first
+            function typeBadge() {
+                if (badgeIndex < badgeText.length) {
+                    badgeElement.innerHTML += badgeText.charAt(badgeIndex);
+                    badgeIndex++;
+                    setTimeout(typeBadge, 100);
+                } else {
+                    // Start typing name after badge is done
+                    setTimeout(typeName, 300);
+                }
+            }
+            
+            // Type name second
+            function typeName() {
+                if (nameIndex < nameText.length) {
+                    nameElement.innerHTML += nameText.charAt(nameIndex);
+                    nameIndex++;
+                    setTimeout(typeName, 150);
+                }
+            }
+            
+            // Start the sequence
+            setTimeout(typeBadge, 500);
+        });
+
+        // CONSTANT TYPEWRITER FOR TAB TITLE (loops forever)
+        window.addEventListener('load', function() {
+            const tabText = "LilVamp1X";
+            const tabElement = document.getElementById('page-title');
+            
+            function loopTabTitle() {
+                let tabIndex = 0;
+                tabElement.innerHTML = ''; // Clear tab title
+                
+                function typeTab() {
+                    if (tabIndex < tabText.length) {
+                        tabElement.innerHTML += tabText.charAt(tabIndex);
+                        tabIndex++;
+                        setTimeout(typeTab, 150); // Typing speed
+                    } else {
+                        // Wait 2 seconds, then restart the loop
+                        setTimeout(loopTabTitle, 2000);
+                    }
+                }
+                
+                typeTab();
+            }
+            
+            // Start the infinite tab title loop
+            setTimeout(loopTabTitle, 2000); // Start 2 seconds after page loads
+        });
+
+        // Music autoplay at 20% volume
+        window.addEventListener('load', function() {
+            const music = document.getElementById('bg-music');
+            music.volume = 0.2;
+            
+            let playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('Music playing at 20% volume');
+                }).catch(() => {
+                    console.log('Autoplay blocked - will play on click');
+                    
+                    document.body.addEventListener('click', function playOnClick() {
+                        music.volume = 0.2;
+                        music.play();
+                        document.body.removeEventListener('click', playOnClick);
+                    }, { once: true });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
