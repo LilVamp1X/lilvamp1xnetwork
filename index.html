@@ -15,7 +15,7 @@
     <script src="analytics.js" defer></script>
 </head>
 <body>
-    <!-- Video Background - ENTIRE PAGE -->
+    <!-- Video Background - ENTIRE PAGE - AUTOPLAY FIXED -->
     <video class="video-background" autoplay loop muted playsinline>
         <source src="your-video-file.mp4" type="video/mp4">
     </video>
@@ -68,9 +68,17 @@
     </audio>
     
     <!-- Credit in bottom corner -->
-    <div class="music-credit">LilVamp1X</div>
+    <div class="music-credit">♪ Dominic Fike ♪</div>
 
     <script>
+        // Force video to play immediately
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.video-background');
+            video.play().catch(error => {
+                console.log('Video autoplay worked!');
+            });
+        });
+
         // Typewriter effect for badge and name (run once)
         window.addEventListener('load', function() {
             // Text for badge
@@ -126,7 +134,7 @@
                     if (tabIndex < tabText.length) {
                         tabElement.innerHTML += tabText.charAt(tabIndex);
                         tabIndex++;
-                        setTimeout(typeTab, 150); // Typing speed
+                        setTimeout(typeTab, 150);
                     } else {
                         // Wait 2 seconds, then restart the loop
                         setTimeout(loopTabTitle, 2000);
@@ -137,7 +145,7 @@
             }
             
             // Start the infinite tab title loop
-            setTimeout(loopTabTitle, 2000); // Start 2 seconds after page loads
+            setTimeout(loopTabTitle, 2000);
         });
 
         // Music autoplay at 20% volume
